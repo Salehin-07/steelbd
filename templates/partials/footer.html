@@ -1,0 +1,72 @@
+{% load static %}
+{% load auth_extras %}
+<!-- Footer Start -->
+<div class="footer wow fadeIn" data-wow-delay="0.3s">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <div class="footer-contact">
+                    <h2>Office Contact</h2>
+                    {% for contact in contacts %}
+                    <p><i class="fa fa-map-marker-alt"></i>{{ contact.location }}</p>
+                    <p><i class="fa fa-phone-alt"></i>+{{ contact.phone }}</p>
+                    <p><i class="fa fa-envelope">
+                    </i>{{ contact.email }}</p>
+                    {% endfor %}
+                    
+                    {% if social_media %}
+                    <div class="footer-social">
+                      {% for media in social_media %}
+                        <a href="{{ media.link }}"><i class="{{ media.logo_class }}"></i></a>
+                        <!--<a href=""><i class="fab fa-twitter"></i></a>-->
+                        <!--<a href=""><i class="fab fa-facebook-f"></i></a>-->
+                        <!--<a href=""><i class="fab fa-youtube"></i></a>-->
+                        <!--<a href=""><i class="fab fa-instagram"></i></a>-->
+                        <!--<a href=""><i class="fab fa-linkedin-in"></i></a>-->
+                      {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="footer-link">
+                    <h2>Services Areas</h2>
+                    <a href="{% url "service" %}">Building Construction</a>
+                    <a href="{% url "service" %}">House Renovation</a>
+                    <a href="{% url "service" %}">Architecture Design</a>
+                    <a href="{% url "service" %}">Interior Design</a>
+                    <a href="{% url "service" %}">Painting</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="footer-link">
+                    <h2>Useful Pages</h2>
+                    <a href="{% url "about" %}">About Us</a>
+                    <a href="{% url "contact" %}">Contact Us</a>
+                    <a href="{% url "team" %}">Our Team</a>
+                    <a href="{% url "projects" %}">Projects</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="container footer-menu">-->
+    <!--    <div class="f-menu">-->
+    <!--        <a href="">Terms of use</a>-->
+    <!--        <a href="">Privacy policy</a>-->
+    <!--        <a href="">Cookies</a>-->
+    <!--        <a href="">Help</a>-->
+    <!--        <a href="">FQAs</a>-->
+    <!--    </div>-->
+    <!--</div>-->
+    <div class="container copyright">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; <a href="#">Micro Tech Constructions Ltd.</a>, All Right Reserved.</p>
+            </div>
+            <div class="col-md-6">
+                <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->

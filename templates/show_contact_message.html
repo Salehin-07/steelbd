@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+{% load auth_extras %}
+
+{% block title %}Show Contact Message{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="{% static "css/show_contact_message.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-envelope-open-text"></i> Contact Messages</h1>
+        <p>Manage and review contact form submissions</p>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number unchecked" id="unchecked-count">
+                {% for message in contact_message %}
+                    {% if message.status == 'unchecked' %}{{ forloop.counter }}{% endif %}
+                {% endfor %}
+            </span>
+            <span class="stat-label">Unchecked Messages</span>
+        </div>
+    </div>
+
+    <div class="filter-controls">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search unchecked messages...">
+        </div>
+    </div>
+
+    <div class="messages-grid" id="messagesGrid">
+        {% for message in contact_message %}
+        {% if message.status == 'unchecked' %}
+        <div class="message-card" data-status="{{ message.status }}" data-id="{{ message.id }}">
+            <div class="message-header">
+                <div class="sender-info">
+                    <h3>{{ message.name }}</h3>
+                    <p class="email">{{ message.email }}</p>
+                </div>
+                <div class="status-badge {{ message.status }}">
+                    <i class="fas fa-clock"></i>
+                    Unchecked
+                </div>
+            </div>
+            
+            <div class="message-subject">
+                <h4>{{ message.subject }}</h4>
+            </div>
+            
+            <div class="message-content">
+                <p>{{ message.description|truncatewords:20 }}</p>
+            </div>
+            
+            <div class="message-actions">
+                <button class="action-btn view-btn" onclick="viewFullMessage({{ message.id }}, '{{ message.name|escapejs }}', '{{ message.email|escapejs }}', '{{ message.subject|escapejs }}', '{{ message.description|escapejs }}')">
+                    <i class="fas fa-eye"></i> View Full
+                </button>
+                <button class="action-btn status-btn" onclick="markAsChecked({{ message.id }})">
+                    <i class="fas fa-check"></i>
+                    Mark as Checked
+                </button>
+            </div>
+        </div>
+        {% endif %}
+        {% empty %}
+        <div class="no-messages">
+            <i class="fas fa-inbox"></i>
+            <h3>No Messages Found</h3>
+            <p>No unchecked contact messages available.</p>
+        </div>
+        {% endfor %}
+        {% if not contact_message or not contact_message|length %}
+        <div class="no-messages">
+            <i class="fas fa-inbox"></i>
+            <h3>No Messages Found</h3>
+            <p>No unchecked contact messages available.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal for viewing full message -->
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Message Details</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="modal-field">
+                <label>Name:</label>
+                <span id="modalName"></span>
+            </div>
+            <div class="modal-field">
+                <label>Email:</label>
+                <span id="modalEmail"></span>
+            </div>
+            <div class="modal-field">
+                <label>Subject:</label>
+                <span id="modalSubject"></span>
+            </div>
+            <div class="modal-field">
+                <label>Message:</label>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static "js/show_contact_message.js" %}"></script>
+{% endblock %}

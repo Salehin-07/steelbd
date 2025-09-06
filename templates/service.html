@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+{% load auth_extras %}
+
+{% block title %}Services{% endblock %}
+
+{% block content %}
+
+<!-- Page Header Start -->
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Our Services</h2>
+      </div>
+      <div class="col-12">
+        <a href="{% url "home" %}">Home</a>
+        <a href="{% url "service" %}">Our Services</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+{% if services %}
+<!-- Service Start -->
+<div class="service">
+  <div class="container">
+    <div class="section-header text-center">
+      <p>
+        Our Services
+      </p>
+      <h2>We Provide Services</h2>
+    </div>
+    <div class="row">
+      {% for service in services %}
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+        <div class="service-item">
+          <div class="service-img">
+            <img src="{{ service.img_url }}" alt="{{ service.title }}">
+            <div class="service-overlay">
+              <p>
+                {{ service.description }}
+              </p>
+            </div>
+          </div>
+          <div class="service-text">
+            <h3>{{ service.title }}</h3>
+            <a class="btn" href="{{ service.img_url }}" data-lightbox="service">+</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- Service End -->
+{% endif %}
+
+{% if questions %}
+<!-- FAQs Start -->
+<div class="faqs">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Frequently Asked Question</p>
+            <h2>You May Ask</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="accordion-1">
+                    {% for question in questions %}
+                    {% if forloop.counter0|divisibleby:2 %}
+                    <div class="card wow fadeInLeft" data-wow-delay="0.{{ forloop.counter }}s">
+                        <div class="card-header">
+                            <a
+                                class="card-link collapsed"
+                                data-toggle="collapse"
+                                href="#collapse{{ forloop.counter }}"
+                            >
+                                {{ question.question }}
+                            </a>
+                        </div>
+                        <div
+                            id="collapse{{ forloop.counter }}"
+                            class="collapse"
+                            data-parent="#accordion-1"
+                        >
+                            <div class="card-body">
+                                {{ question.answer }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="accordion-2">
+                    {% for question in questions %}
+                    {% if not forloop.counter0|divisibleby:2 %}
+                    <div class="card wow fadeInRight" data-wow-delay="0.{{ forloop.counter }}s">
+                        <div class="card-header">
+                            <a
+                                class="card-link collapsed"
+                                data-toggle="collapse"
+                                href="#collapse{{ forloop.counter }}"
+                            >
+                                {{ question.question }}
+                            </a>
+                        </div>
+                        <div
+                            id="collapse{{ forloop.counter }}"
+                            class="collapse"
+                            data-parent="#accordion-2"
+                        >
+                            <div class="card-body">
+                                {{ question.answer }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FAQs End -->
+{% endif %}
+
+
+{% endblock %}

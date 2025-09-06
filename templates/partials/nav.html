@@ -1,0 +1,91 @@
+{% load static %}
+{% load auth_extras %}
+<!-- Top Bar Start -->
+<div class="top-bar">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-4 col-md-12">
+                <div class="logo">
+                    <a href="{% url "home" %}">
+                        <h1>Micro Tech</h1>
+                    </a>
+                </div>
+            </div>
+            <!--<div class="col-lg-8 col-md-7 d-none d-lg-block">-->
+            <!--    <div class="row">-->
+            <!--        <div class="col-4">-->
+            <!--            <div class="top-bar-item">-->
+            <!--                <div class="top-bar-icon">-->
+            <!--                    <i class="flaticon-calendar"></i>-->
+            <!--                </div>-->
+            <!--                <div class="top-bar-text">-->
+            <!--                    <h3>Opening Hour</h3>-->
+            <!--                    <p>Mon - Fri, 8:00 - 9:00</p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <div class="col-4">-->
+            <!--            <div class="top-bar-item">-->
+            <!--                <div class="top-bar-icon">-->
+            <!--                    <i class="flaticon-call"></i>-->
+            <!--                </div>-->
+            <!--                <div class="top-bar-text">-->
+            <!--                    <h3>Call Us</h3>-->
+            <!--                    <p>+012 345 6789</p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <div class="col-4">-->
+            <!--            <div class="top-bar-item">-->
+            <!--                <div class="top-bar-icon">-->
+            <!--                    <i class="flaticon-send-mail"></i>-->
+            <!--                </div>-->
+            <!--                <div class="top-bar-text">-->
+            <!--                    <h3>Email Us</h3>-->
+            <!--                    <p>info@example.com</p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--    </div>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+<!-- Top Bar End -->
+
+<!-- Nav Bar Start -->
+<div class="nav-bar">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <a href="{% url "home" %}" class="navbar-brand">
+                 <div class="menu-logo">
+                   <div class="menu-logo-icon">
+                     <img class="menu-logo-img" src="{% static "img/logo.jpg" %}" alt="Logo">
+                 </div>
+                 <span class="menu-logo-text">Micro Tech</span>
+                </div>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav mr-auto">
+                    <a href="{% url "home" %}" class="nav-item nav-link active">Home</a>
+                    <a href="{% url "about" %}" class="nav-item nav-link">About</a>
+                    <a href="{% url "service" %}" class="nav-item nav-link">Service</a>
+                    <a href="{% url "team" %}" class="nav-item nav-link">Team</a>
+                    <a href="{% url "projects" %}" class="nav-item nav-link">Project</a>
+                    <a href="{% url "contact" %}" class="nav-item nav-link">Contact</a>
+                    {% if user|is_admin %}
+                    <a href="{% url "show_contact_messages" %}" class="nav-item nav-link">Show Contact Messages</a>
+                    {% endif %}
+                </div>
+                <div class="ml-auto">
+                    <a class="btn" href="#">Get A Quote</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Nav Bar End -->

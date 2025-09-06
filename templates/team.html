@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% load auth_extras %}
+
+{% block title %}Team{% endblock %}
+
+{% block content %}
+
+<!-- Page Header Start -->
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Our Team</h2>
+      </div>
+      <div class="col-12">
+        <a href="{% url "home" %}">Home</a>
+        <a href="{% url "team" %}">Our Team</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Header End -->
+
+{% if team_members %}
+<!-- Team Start -->
+<div class="team">
+  <div class="container">
+    <div class="section-header text-center">
+      <p>
+        Our Team
+      </p>
+      <h2>Meet Our Engineer</h2>
+    </div>
+    <div class="row">
+      {% for member in team_members %}
+      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.{% cycle '1' '2' '3' '4' %}s">
+        <div class="team-item">
+          <div class="team-img">
+            <img src="{{ member.img_url }}" alt="{{ member.name }}">
+          </div>
+          <div class="team-text">
+            <h2>{{ member.name }}</h2>
+            <p>
+              {{ member.position }}
+            </p>
+          </div>
+          <div class="team-social">
+            {% if member.twitter_link %}
+            <a class="social-tw" href="{{ member.twitter_link }}" target="_blank"><i class="fab fa-twitter"></i></a>
+            {% endif %}
+            {% if member.facebook_link %}
+            <a class="social-fb" href="{{ member.facebook_link }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            {% endif %}
+            {% if member.linkdin_link %}
+            <a class="social-li" href="{{ member.linkdin_link }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            {% endif %}
+            {% if member.instagram_link %}
+            <a class="social-in" href="{{ member.instagram_link }}" target="_blank"><i class="fab fa-instagram"></i></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- Team End -->
+{% endif %}
+
+{% endblock %}
