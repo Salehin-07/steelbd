@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import json
+from .decorators import admin_required
 from .models import *
 
 # Create your views here.
@@ -104,6 +105,7 @@ def contact(request):
 
 # show_contact_message pages
 
+@admin_required
 def show_contact_message(request):
     # Only get unchecked messages
     contact_message = ContactMessage.objects.filter(status='unchecked').order_by('-id')
